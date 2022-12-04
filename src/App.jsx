@@ -12,9 +12,9 @@ function App() {
         let crd = pos.coords;
 
         console.log('Votre position actuelle est :');
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude : ${crd.longitude}`);
-        console.log(`La précision est de ${crd.accuracy} mètres.`);
+        document.querySelector('.latitude').innerText = crd.latitude
+        document.querySelector('.longitude').innerText = crd.longitude
+        document.querySelector('.accuracy').innerText =`La précision est de ${crd.accuracy} mètres.`
     }
 
     function error(err) {
@@ -25,11 +25,15 @@ function App() {
 
 //https://developer.mozilla.org/fr/docs/Web/API/DeviceOrientationEvent
     window.addEventListener('deviceorientation', function (event) {
-        console.log("z : " + event.alpha + "\n x : " + event.beta + "\n y : " + event.gamma);
+        document.querySelector('.orientation').innerText = "z : " + event.alpha + "\n x : " + event.beta + "\n y : " + event.gamma
     });
     return (
         <div className="App">
-            test
+            <p>Votre position actuelle est :</p>
+            <div className="latitude"></div>
+            <div className="longitude"></div>
+            <div className="accuracy"></div>
+            <div className="orientation"></div>
         </div>
     )
 }
