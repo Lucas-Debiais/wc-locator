@@ -1,13 +1,14 @@
 function ListWC() {
-    let xhr = new XMLHttpRequest()
+    const request = new XMLHttpRequest()
+    request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=137')
+    request.responseType = 'text'
 
-    xhr.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&facet=pole&facet=commune&facet=type&facet=automatique')
+    request.onload = () => {
+        console.log(JSON.parse(request.response).records)
+        document.querySelector('.listWC').innerText = request.response
+    }
 
-    xhr.addEventListener('readystatechange', () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr)
-        }
-    })
+    request.send()
 
     return (
         <div className="listWC"></div>
