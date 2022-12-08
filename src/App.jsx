@@ -1,11 +1,13 @@
 import './App.scss'
+import Header from './Components/Header'
 import GPS from './Components/GPS'
 import Gyroscope from './Components/Gyroscope'
 import ListWC from './Components/ListWC'
 
-function App() {
+const App = () => {
     return (
         <div className="App">
+            <Header />
             <GPS/>
             <Gyroscope/>
             <ListWC/>

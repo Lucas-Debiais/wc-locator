@@ -1,0 +1,19 @@
+@import "style/reset";
+@import "style/variables";
+@import "style/heading";
+@import "style/list";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: sans-serif;
+
+  .App {
+    min-height: 100dvh;
+  }
+}

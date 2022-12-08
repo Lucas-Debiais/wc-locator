@@ -1,4 +1,4 @@
-function GPS() {
+const GPS = () => {
     //https://developer.mozilla.org/fr/docs/Web/API/Geolocation_API
     let options = {
         enableHighAccuracy: true,
