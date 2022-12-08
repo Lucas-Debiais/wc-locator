@@ -1,12 +1,14 @@
 import {createElement} from "react";
+import logo from "./Logo.jsx";
 
 const ListWC = () => {
     const request = new XMLHttpRequest()
     request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=137')
     request.responseType = 'text'
+    let data = null
 
     request.onload = () => {
-        const data = JSON.parse(request.response).records
+        data = JSON.parse(request.response).records
         console.log(data)
         data.forEach(el => {
             let WC = document.createElement('div')
@@ -31,14 +33,14 @@ const ListWC = () => {
             infosWC.appendChild(filtersWC)
             filtersWC.innerHTML = '<span class="WC__horaire">' + el.fields.horaire_d_ouverture + '</span><span class="WC__type">' + el.fields.complement_type + '</span><span class="WC__pmr">' + el.fields.accessible_pmr + '</span>'
 
-            document.querySelector('.list--WC').appendChild(WC)
+            document.getElementById('list--WC').appendChild(WC)
             console.log(el)
         })
     }
     request.send()
 
     return (
-        <div className="list--WC">
+        <div id="list--WC">
         </div>
     )
 }
