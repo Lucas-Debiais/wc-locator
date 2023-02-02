@@ -1,3 +1,11 @@
+#map {
+  display: none;
+
+  &.d-block {
+    display: block;
+  }
+}
+
 .map-container {
   height: calc(100vh - 89px);
 }
