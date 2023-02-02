@@ -16,7 +16,7 @@ function deg2rad(deg) {
 }
 
 
-const useListOfWC = () => {
+export const useListOfWC = () => {
     const [WCs, setWCs] = useState()
 
     const request = new XMLHttpRequest()
