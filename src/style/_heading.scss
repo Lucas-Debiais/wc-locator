@@ -25,6 +25,7 @@
       line-height: 15px;
       position: relative;
       z-index: 1;
+      transition: color .3s ease-in-out;
 
       &.active {
         color: white;
