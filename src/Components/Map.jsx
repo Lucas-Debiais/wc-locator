@@ -35,7 +35,12 @@ export const Map = () => {
             .setPopup(
                 new mapboxgl.Popup({offset: 25}) // add popups
                     .setHTML(
-                        `<h3>${point.fields.nom}</h3><p>${point.fields.horaire_d_ouverture} ${point.fields.complement_type} ${point.fields.accessible_pmr}</p>`
+                        `<h3>${point.fields.nom}</h3>
+                        <p class="popup-list">
+                        ${point.fields.horaire_d_ouverture ? '<span class="WC__horaire">' + point.fields.horaire_d_ouverture + '</span>' : ''} 
+                        ${point.fields.complement_type ? '<span class="WC__type">' + point.fields.complement_type + '</span>' : ''} 
+                        ${point.fields.accessible_pmr === "oui" ? '<span class="WC__pmr"></span>' : ''}
+                        </p>`
                     )
             )
             .addTo(map.current)
