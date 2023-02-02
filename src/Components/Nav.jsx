@@ -6,6 +6,7 @@ export const Nav = () => {
         document.getElementById('map').classList.remove('d-block')
         document.getElementById('activer').classList.add('list')
         document.getElementById('activer').classList.remove('map')
+        document.getElementById('filters').classList.add('list')
     }
 
     const dMap = () => {
@@ -15,6 +16,8 @@ export const Nav = () => {
         document.getElementById('map').classList.add('d-block')
         document.getElementById('activer').classList.remove('list')
         document.getElementById('activer').classList.add('map')
+        document.getElementById('filters').classList.remove('list')
+
     }
 
     return (

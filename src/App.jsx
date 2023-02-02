@@ -4,6 +4,7 @@ import {Gyroscope} from './Components/Gyroscope'
 import {ListWC} from './Components/ListWC'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {Map} from './Components/Map'
+import {Filters} from "./Components/Filters.jsx";
 
 export const App = () => {
     return (
@@ -11,6 +12,7 @@ export const App = () => {
             <Header />
             <Map />
             <ListWC/>
+            <Filters/>
             {/*<Gyroscope/>*/}
         </div>
     )
