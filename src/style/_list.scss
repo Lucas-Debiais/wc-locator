@@ -1,30 +1,8 @@
-.list {
-  &--switch ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid $grey;
-
-    li {
-      width: 50%;
-      text-align: center;
-      padding: 10px 0;
-      font-weight: 600;
-      font-size: 12px;
-      line-height: 15px;
-
-      &.active {
-        border-bottom: 3px solid $primary;
-      }
-    }
-  }
-}
-
 #list--WC {
   display: none;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 95px 20px 20px;
   gap: 15px;
 
   &.d-flex {
