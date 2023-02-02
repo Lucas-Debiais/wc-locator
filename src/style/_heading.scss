@@ -26,6 +26,7 @@
       position: relative;
       z-index: 1;
       transition: color .3s ease-in-out;
+      cursor: pointer;
 
       &.active {
         color: white;
