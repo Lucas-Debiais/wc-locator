@@ -1,48 +1,69 @@
-import {createElement} from "react";
-import logo from "./Logo.jsx";
+import {useMyLocation} from './GPS'
+import {useEffect, useState} from "react";
 
-const ListWC = () => {
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    const R = 6371 // Radius of the earth in km
+    let dLat = deg2rad(lat2 - lat1)  // deg2rad below
+    let dLon = deg2rad(lon2 - lon1)
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    let d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180)
+}
+
+
+const useListOfWC = () => {
+    const [WCs, setWCs] = useState()
+
     const request = new XMLHttpRequest()
     request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=137')
     request.responseType = 'text'
     let data = null
 
-    request.onload = () => {
-        data = JSON.parse(request.response).records
-        console.log(data)
-        data.forEach(el => {
-            let WC = document.createElement('div')
-            WC.classList.add('WC')
-
-            let infosWC = document.createElement('div')
-            infosWC.classList.add('WC__infos')
-            WC.appendChild(infosWC)
-
-            let titleWC = document.createElement('h2')
-            titleWC.classList.add('WC__title')
-            infosWC.appendChild(titleWC)
-            titleWC.innerText = el.fields.nom
-
-            let distanceWC = document.createElement('span')
-            distanceWC.classList.add('WC__distance')
-            WC.appendChild(distanceWC)
-            distanceWC.innerText = 'la distance'
-
-            let filtersWC = document.createElement('div')
-            filtersWC.classList.add('WC__filters')
-            infosWC.appendChild(filtersWC)
-            filtersWC.innerHTML = '<span class="WC__horaire">' + el.fields.horaire_d_ouverture + '</span><span class="WC__type">' + el.fields.complement_type + '</span><span class="WC__pmr">' + el.fields.accessible_pmr + '</span>'
-
-            document.getElementById('list--WC').appendChild(WC)
-            console.log(el)
-        })
-    }
+    useEffect(() => {
+        request.onload = () => {
+            data = JSON.parse(request.response).records
+            setWCs(data)
+        }
+    }, [])
     request.send()
+
+    return (WCs)
+}
+
+export const ListWC = () => {
+    const WCs = useListOfWC()
+    const {latitude: latitudePerso, longitude: longitudePerso} = useMyLocation()
+    // console.log(WCs)
+    const distTab = WCs?.map?.(wc => {
+        const distance = getDistanceFromLatLonInKm(latitudePerso, longitudePerso, wc.fields.geo_shape.coordinates[1], wc.fields.geo_shape.coordinates[0])
+
+        return {...wc, distance}
+    }).sort((a, b) => {
+        return a.distance - b.distance;
+    })
 
     return (
         <div id="list--WC">
+            {distTab?.map?.(wc =>
+                <div className="WC" key={wc.recordid}>
+                    <div className="WC__infos">
+                        <h2 className="WC__title">{wc.fields.nom}</h2>
+                        <div className="WC__filters">
+                            <span className="WC__horaire">{wc.fields.horaire_d_ouverture}</span>
+                            <span className="WC__type">{wc.fields.complement_type}</span>
+                            <span className="WC__pmr">{wc.fields.accessible_pmr}</span>
+                        </div>
+                    </div>
+                    <span className="WC__distance">
+                        {Math.round(wc.distance * 100) / 100}km
+                    </span>
+                </div>
+            )}
         </div>
     )
 }
-
-export default ListWC

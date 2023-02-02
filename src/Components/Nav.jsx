@@ -1,4 +1,4 @@
-const Nav = () => {
+export const Nav = () => {
     const dList = () => {
         document.getElementById('list--WC').classList.add('d-flex')
         document.querySelector('.list').classList.add('active')
@@ -20,5 +20,3 @@ const Nav = () => {
         </nav>
     )
 }
-
-export default Nav

@@ -1,7 +1,7 @@
-import Logo from './Logo'
-import Nav from './Nav'
+import {Logo} from './Logo'
+import {Nav} from './Nav'
 
-const Header = () => {
+export const Header = () => {
     return (
         <header>
             <Logo/>
@@ -9,5 +9,3 @@ const Header = () => {
         </header>
     )
 }
-
-export default Header

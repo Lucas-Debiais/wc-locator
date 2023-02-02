@@ -1,18 +1,14 @@
 import './App.scss'
-import Header from './Components/Header'
-import GPS from './Components/GPS'
-import Gyroscope from './Components/Gyroscope'
-import ListWC from './Components/ListWC'
+import {Header} from './Components/Header'
+import {Gyroscope} from './Components/Gyroscope'
+import {ListWC} from './Components/ListWC'
 
-const App = () => {
+export const App = () => {
     return (
         <div className="App">
             <Header />
-            <GPS/>
-            <Gyroscope/>
             <ListWC/>
+            <Gyroscope/>
         </div>
     )
 }
-
-export default App
