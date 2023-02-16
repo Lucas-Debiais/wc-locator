@@ -21,6 +21,11 @@ body {
   .App {
     min-height: 100dvh;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 @import "style/variables";
