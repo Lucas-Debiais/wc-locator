@@ -69,7 +69,8 @@ export const ListWC = () => {
                         </div>
                     </div>
                     <span className="WC__distance">
-                        {Math.round(wc.distance * 100) / 100} km
+                        {wc.distance}
+                        {/*{Math.round(wc.distance * 100) / 100} km*/}
                     </span>
                 </div>
             )}

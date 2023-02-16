@@ -15,9 +15,7 @@ export const useMyLocation = () => {
         setLatitude(crd.latitude)
         setLongitude(crd.longitude)
 
-        // document.querySelector('.latitude').innerText = crd.latitude
-        // document.querySelector('.longitude').innerText = crd.longitude
-        // document.querySelector('.accuracy').innerText = `La précision est de ${crd.accuracy} mètres.`
+        console.log(crd)
     }
 
     function error(err) {
@@ -25,7 +23,7 @@ export const useMyLocation = () => {
     }
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(success, error, options)
+        navigator.geolocation.watchPosition(success, error, options)
     }, [])
 
 
