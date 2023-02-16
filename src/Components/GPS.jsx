@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 export const useMyLocation = () => {
     const [latitude, setLatitude] = useState()
     const [longitude, setLongitude] = useState()
+
     let options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -14,8 +15,6 @@ export const useMyLocation = () => {
 
         setLatitude(crd.latitude)
         setLongitude(crd.longitude)
-
-        console.log(crd)
     }
 
     function error(err) {

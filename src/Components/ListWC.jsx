@@ -1,5 +1,6 @@
 import {useMyLocation} from './GPS'
 import {useEffect, useState} from "react";
+import {filterMap} from "./Filters.jsx";
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     const R = 6371 // Radius of the earth in km
@@ -20,7 +21,8 @@ export const useListOfWC = () => {
     const [WCs, setWCs] = useState()
 
     const request = new XMLHttpRequest()
-    request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=137')
+    request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=-1')
+    // request.open('GET', 'https://opendata.bordeaux-metropole.fr/api/records/1.0/search/?dataset=bor_sigsanitaire&q=&rows=-1&facet=type&facet=handi')
     request.responseType = 'text'
     let data = null
 
@@ -35,10 +37,9 @@ export const useListOfWC = () => {
     return (WCs)
 }
 
-export const ListWC = () => {
+export const ListWC = ({selected, filters}) => {
     const WCs = useListOfWC()
     const {latitude: latitudePerso, longitude: longitudePerso} = useMyLocation()
-    // console.log(WCs)
     const distTab = WCs?.map?.(wc => {
         const distance = getDistanceFromLatLonInKm(latitudePerso, longitudePerso, wc.fields.geo_shape.coordinates[1], wc.fields.geo_shape.coordinates[0])
 
@@ -47,21 +48,24 @@ export const ListWC = () => {
         return a.distance - b.distance;
     })
 
-    console.log(WCs)
+    let filteredPoints = distTab
+    filters.forEach((filterName) => {
+        filteredPoints = filteredPoints.filter(filterMap[filterName])
+    })
 
     return (
-        <div id="list--WC">
-            {distTab?.map?.(wc =>
+        <div id="list--WC" className={selected ? "d-flex" : ""}>
+            {filteredPoints?.map?.(wc =>
                 <div className="WC" key={wc.recordid}>
                     <div className="WC__infos">
                         <h2 className="WC__title">{wc.fields.nom}</h2>
                         <div className="WC__filters">
                             {wc.fields.horaire_d_ouverture ? <span className="WC__horaire">
-                                    {wc.fields.horaire_d_ouverture}
+                                    <span>{wc.fields.horaire_d_ouverture}</span>
                                 </span> : ''}
                             {wc.fields.complement_type ?
                                 <span className="WC__type">
-                                        {wc.fields.complement_type}
+                                    <span>{wc.fields.complement_type}</span>
                                 </span> : ''}
                             {wc.fields.accessible_pmr === "oui" ? <span className="WC__pmr">
                             </span>
@@ -69,8 +73,7 @@ export const ListWC = () => {
                         </div>
                     </div>
                     <span className="WC__distance">
-                        {wc.distance}
-                        {/*{Math.round(wc.distance * 100) / 100} km*/}
+                        {Math.round(wc.distance * 100) / 100} km
                     </span>
                 </div>
             )}
