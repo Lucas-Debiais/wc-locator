@@ -21,9 +21,9 @@ export const useListOfWC = () => {
     const [WCs, setWCs] = useState()
 
     const request = new XMLHttpRequest()
-    // request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=-1')
-   // request.setRequestHeader( "Authorization", "Apikey bb7852e64f73e9acafbbbc31b4e237fe85f8e3beb630799d27351d64")
-    request.open('GET', 'https://opendata.bordeaux-metropole.fr/api/records/1.0/search/?dataset=bor_sigsanitaire&q=&rows=-1&facet=type&facet=handi')
+    request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=-1')
+    request.setRequestHeader( "Authorization", "Apikey bb7852e64f73e9acafbbbc31b4e237fe85f8e3beb630799d27351d64")
+    // request.open('GET', 'https://opendata.bordeaux-metropole.fr/api/records/1.0/search/?dataset=bor_sigsanitaire&q=&rows=-1&facet=type&facet=handi')
     request.responseType = 'text'
     let data = null
 
