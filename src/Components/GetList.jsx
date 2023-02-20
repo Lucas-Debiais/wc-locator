@@ -28,7 +28,7 @@ export const Cities = {
         name: 'Rennes',
         url: 'https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=toilettes_publiques_vdr&q=&rows=-1',
         longitude: -1.6833,
-        latitude: 48.0833,
+        latitude: 48.1025,
     },
     lille: {
       name: 'Lille',
