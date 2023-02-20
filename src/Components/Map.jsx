@@ -1,16 +1,14 @@
 import React, {useRef, useEffect, useState} from 'react';
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import {useListOfWC} from './ListWC.jsx'
+import {GetList} from './GetList.jsx'
 import {filterMap} from "./Filters.jsx";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmlhaXNkZSIsImEiOiJjbGRuMXRkYmkwZjU3M29td2Vud2o5dnRyIn0.Oak6nQusSTMQ6Pi7uqd6DA';
 
-export const Map = ({selected, filters}) => {
-    const points = useListOfWC()
+export const Map = ({selected, filters, selectedCity, setLng, setLat, lng, lat}) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(-1.553621);
-    const [lat, setLat] = useState(47.218371);
+    const points = GetList({selectedCity, setLng, setLat})
     const [zoom, setZoom] = useState(12);
 
     useEffect(() => {
@@ -35,9 +33,16 @@ export const Map = ({selected, filters}) => {
         )
     }, [])
 
-    // point.fields.accessible_pmr === 'oui' && point.fields.horaire_d_ouverture === '24/24' && point.fields.complement_type === 'WC Siège'
     useEffect(() => {
+        map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/biaisde/cldmvdrni001901lit40lmaww',
+            center: [lng, lat],
+            zoom: zoom,
+        })
+    }, [lng, lat])
 
+    useEffect(() => {
         let filteredPoints = points
         filters.forEach((filterName) => {
             filteredPoints = filteredPoints.filter(filterMap[filterName])

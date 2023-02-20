@@ -1,6 +1,7 @@
-import {useMyLocation} from './GPS'
+import {useMyLocation} from './GPS.jsx'
 import {useEffect, useState} from "react";
 import {filterMap} from "./Filters.jsx";
+import {GetList} from "./GetList.jsx";
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     const R = 6371 // Radius of the earth in km
@@ -16,30 +17,8 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
-
-export const useListOfWC = () => {
-    const [WCs, setWCs] = useState()
-
-    const request = new XMLHttpRequest()
-    request.open('GET', 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_toilettes-publiques-nantes-metropole&q=&rows=-1')
-    request.setRequestHeader( "Authorization", "Apikey bb7852e64f73e9acafbbbc31b4e237fe85f8e3beb630799d27351d64")
-    // request.open('GET', 'https://opendata.bordeaux-metropole.fr/api/records/1.0/search/?dataset=bor_sigsanitaire&q=&rows=-1&facet=type&facet=handi')
-    request.responseType = 'text'
-    let data = null
-
-    useEffect(() => {
-        request.onload = () => {
-            data = JSON.parse(request.response).records
-            setWCs(data)
-        }
-    }, [])
-    request.send()
-
-    return (WCs)
-}
-
-export const ListWC = ({selected, filters}) => {
-    const WCs = useListOfWC()
+export const ListWC = ({selected, filters, selectedCity, setLng, setLat}) => {
+    const WCs = GetList({selectedCity, setLng, setLat})
     const {latitude: latitudePerso, longitude: longitudePerso} = useMyLocation()
     const distTab = WCs?.map?.(wc => {
         const distance = getDistanceFromLatLonInKm(latitudePerso, longitudePerso, wc.fields.geo_shape.coordinates[1], wc.fields.geo_shape.coordinates[0])
