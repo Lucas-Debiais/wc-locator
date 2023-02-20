@@ -36,9 +36,16 @@ export const ListWC = ({selected, filters, selectedCity, setLng, setLat}) => {
     return (
         <div id="list--WC" className={selected ? "d-flex" : ""}>
             {filteredPoints?.map?.(wc =>
-                <a target="_blank" href={`https://www.google.fr/maps/dir/${ wc.fields.geo_shape.coordinates[1]},${wc.fields.geo_shape.coordinates[0]}/${latitudePerso},${longitudePerso}`} className="WC" key={wc.recordid}>
+                <a target="_blank"
+                   href={`https://www.google.fr/maps/dir/${wc.fields.geo_shape.coordinates[1]},${wc.fields.geo_shape.coordinates[0]}/${latitudePerso},${longitudePerso}`}
+                   className="WC" key={wc.recordid}>
                     <div className="WC__infos">
-                        <h2 className="WC__title">{wc.fields.nom}</h2>
+                        <h2 className="WC__title">
+                            {selectedCity === 'nantes' && (wc.fields.nom)}
+                            {selectedCity === 'bordeaux' && (wc.fields.adresse)}
+                            {selectedCity === 'rennes' && (wc.fields.noms)}
+                            {selectedCity === 'lille' && (wc.fields.name)}
+                        </h2>
                         <div className="WC__filters">
                             {wc.fields.horaire_d_ouverture ? <span className="WC__horaire">
                                     <span>{wc.fields.horaire_d_ouverture}</span>

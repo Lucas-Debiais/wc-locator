@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Cities} from "./GetList.jsx";
+import {CityFiltersNantes} from "./Nantes/CityFilters.jsx";
 
 export const filterMap = {
     hours: (point) => point.fields.horaire_d_ouverture === '24/24',
@@ -7,7 +8,7 @@ export const filterMap = {
     pmr: (point) => point.fields.accessible_pmr === 'oui'
 }
 
-export const Filters = ({selectedRoute, setFilters, setSelectedCity}) => {
+export const Filters = ({selectedRoute, setFilters, setSelectedCity, selectedCity}) => {
     const [selectedFilter, setSelectedFilter] = useState()
 
     const open = () => {
@@ -43,35 +44,9 @@ export const Filters = ({selectedRoute, setFilters, setSelectedCity}) => {
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="filters__hours">Disponible la nuit
-                        <input id="filters__hours" type="checkbox" onChange={event => {
-                            if (event.target.checked) {
-                                setFilters(previousValue => [...previousValue, "hours"])
-                            } else {
-                                setFilters(previousValue => previousValue.filter((value) => value !== "hours"))
-                            }
-                        }}/>
-                    </label>
-                    <label htmlFor="filters__seat">Sièges WC
-                        <input id="filters__seat" type="checkbox"
-                               onChange={(event) => {
-                                   if (event.target.checked) {
-                                       setFilters(previousValue => [...previousValue, "seat"])
-                                   } else {
-                                       setFilters(previousValue => previousValue.filter((value) => value !== "seat"))
-                                   }
-                               }}/>
-                    </label>
-                    <label htmlFor="filters__pmr">Accès PMR
-                        <input id="filters__pmr" type="checkbox"
-                               onChange={(event) => {
-                                   if (event.target.checked) {
-                                       setFilters(previousValue => [...previousValue, "pmr"])
-                                   } else {
-                                       setFilters(previousValue => previousValue.filter((value) => value !== "pmr"))
-                                   }
-                               }}/>
-                    </label>
+                    {selectedCity === 'nantes' && (
+                        <CityFiltersNantes setFilters={setFilters}/>
+                    )}
                 </div>
             </div>
         </div>
