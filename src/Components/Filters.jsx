@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Cities} from "./GetList.jsx";
 
 export const filterMap = {
     hours: (point) => point.fields.horaire_d_ouverture === '24/24',
@@ -6,7 +7,7 @@ export const filterMap = {
     pmr: (point) => point.fields.accessible_pmr === 'oui'
 }
 
-export const Filters = ({selectedRoute, setFilters}) => {
+export const Filters = ({selectedRoute, setFilters, setSelectedCity}) => {
     const [selectedFilter, setSelectedFilter] = useState()
 
     const open = () => {
@@ -33,8 +34,17 @@ export const Filters = ({selectedRoute, setFilters}) => {
                     </span>
                 </div>
                 <div className="filters__body">
+                    <select className="filters__cities" onChange={event => {
+                        setSelectedCity(event.target.value)
+                    }}>
+                        {Object.entries(Cities).map(([key, value]) => (
+                            <option key={key} value={key}>
+                                {value.name}
+                            </option>
+                        ))}
+                    </select>
                     <label htmlFor="filters__hours">Disponible la nuit
-                        <input id="filters__hours" type="checkbox" onChange={(event) => {
+                        <input id="filters__hours" type="checkbox" onChange={event => {
                             if (event.target.checked) {
                                 setFilters(previousValue => [...previousValue, "hours"])
                             } else {
