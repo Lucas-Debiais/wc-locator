@@ -12,14 +12,15 @@ export const Map = ({selected, filters, selectedCity, setLng, setLat, lng, lat})
     const [zoom, setZoom] = useState(12);
 
     useEffect(() => {
-        if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/biaisde/cldmvdrni001901lit40lmaww',
             center: [lng, lat],
             zoom: zoom,
         })
+    }, [lng, lat])
 
+    useEffect(() => {
         map.current?.addControl?.(
             new mapboxgl.GeolocateControl({
                 positionOptions: {
@@ -32,15 +33,6 @@ export const Map = ({selected, filters, selectedCity, setLng, setLat, lng, lat})
             })
         )
     }, [])
-
-    useEffect(() => {
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/biaisde/cldmvdrni001901lit40lmaww',
-            center: [lng, lat],
-            zoom: zoom,
-        })
-    }, [lng, lat])
 
     useEffect(() => {
         let filteredPoints = points
@@ -65,7 +57,10 @@ export const Map = ({selected, filters, selectedCity, setLng, setLat, lng, lat})
                 .setPopup(
                     new mapboxgl.Popup({offset: 25}) // add popups
                         .setHTML(
-                            `<h3>${point.fields.nom}</h3>
+                            `<h3>${selectedCity === 'nantes' ? (point.fields.nom) : ''}
+                            ${selectedCity === 'bordeaux' ? (point.fields.adresse) : ''}
+                            ${selectedCity === 'rennes' ? (point.fields.noms) : ''}
+                            ${selectedCity === 'lille' ? (point.fields.name) : ''}</h3>
                         <p class="popup-list">
                         ${point.fields.horaire_d_ouverture ? '<span class="WC__horaire">' + point.fields.horaire_d_ouverture + '</span>' : ''} 
                         ${point.fields.complement_type ? '<span class="WC__type">' + point.fields.complement_type + '</span>' : ''} 

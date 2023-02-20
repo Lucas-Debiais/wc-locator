@@ -19,7 +19,7 @@ export const App = () => {
             <Nav setSelectedRoute={setSelectedRoute} selectedRoute={selectedRoute}/>
             <Map setLng={setLng} setLat={setLat} lng={lng} lat={lat} selectedCity={selectedCity} filters={filters} selected={selectedRoute === "map"}/>
             <ListWC setLng={setLng} setLat={setLat} selectedCity={selectedCity} filters={filters} selected={selectedRoute === "list"}/>
-            <Filters setSelectedCity={setSelectedCity} setFilters={setFilters} selectedRoute={selectedRoute}/>
+            <Filters selectedCity={selectedCity} setSelectedCity={setSelectedCity} setFilters={setFilters} selectedRoute={selectedRoute}/>
             {/*<Gyroscope/>*/}
         </div>
     )
