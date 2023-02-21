@@ -57,7 +57,7 @@ export const Map = ({selected, filters, selectedCity, setLng, setLat, lng, lat})
 
             // make a marker for each feature and add it to the map
             new mapboxgl.Marker(el)
-                .setLngLat([point.fields.geo_shape.coordinates[0], point.fields.geo_shape.coordinates[1]])
+                .setLngLat(selectedCity !== 'paris' ? [point.fields.geo_shape.coordinates[0], point.fields.geo_shape.coordinates[1]] : [point.fields.geo_shape.coordinates[0][0], point.fields.geo_shape.coordinates[0][1]])
                 .setPopup(
                     new mapboxgl.Popup({offset: 25}) // add popups
                         .setHTML(
