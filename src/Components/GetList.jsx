@@ -18,12 +18,12 @@ export const Cities = {
         longitude: -0.5667,
         latitude: 44.8378,
     },
-    // paris: {
-    //     name: 'Paris',
-    //     url: 'https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&q=&rows=-1&facet=type&facet=statut&facet=arrondissement&facet=horaire&facet=acces_pmr&facet=relais_bebe',
-    //     longitude: 2.333333,
-    //     latitude: 48.866667,
-    // },
+    paris: {
+        name: 'Paris',
+        url: 'https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&q=&rows=-1&facet=type&facet=statut&facet=arrondissement&facet=horaire&facet=acces_pmr&facet=relais_bebe',
+        longitude: 2.333333,
+        latitude: 48.866667,
+    },
     rennes: {
         name: 'Rennes',
         url: 'https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=toilettes_publiques_vdr&q=&rows=-1',

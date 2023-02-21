@@ -20,8 +20,9 @@ function deg2rad(deg) {
 export const ListWC = ({selected, filters, selectedCity, setLng, setLat}) => {
     const WCs = GetList({selectedCity, setLng, setLat})
     const {latitude: latitudePerso, longitude: longitudePerso} = useMyLocation()
+
     const distTab = WCs?.map?.(wc => {
-        const distance = getDistanceFromLatLonInKm(latitudePerso, longitudePerso, wc.fields.geo_shape.coordinates[1], wc.fields.geo_shape.coordinates[0])
+        const distance = selectedCity !== 'paris' ? getDistanceFromLatLonInKm(latitudePerso, longitudePerso, wc.fields.geo_shape.coordinates[1], wc.fields.geo_shape.coordinates[0]) : getDistanceFromLatLonInKm(latitudePerso, longitudePerso, wc.fields.geo_shape.coordinates[0][1], wc.fields.geo_shape.coordinates[0][0]);
 
         return {...wc, distance}
     }).sort((a, b) => {
@@ -37,12 +38,13 @@ export const ListWC = ({selected, filters, selectedCity, setLng, setLat}) => {
         <div id="list--WC" className={selected ? "d-flex" : ""}>
             {filteredPoints?.map?.(wc =>
                 <a target="_blank"
-                   href={`https://www.google.fr/maps/dir/${wc.fields.geo_shape.coordinates[1]},${wc.fields.geo_shape.coordinates[0]}/${latitudePerso},${longitudePerso}`}
+                   href={selectedCity !== 'paris' ? `https://www.google.fr/maps/dir/${wc.fields.geo_shape.coordinates[1]},${wc.fields.geo_shape.coordinates[0]}/${latitudePerso},${longitudePerso}` : `https://www.google.fr/maps/dir/${wc.fields.geo_shape.coordinates[0][1]},${wc.fields.geo_shape.coordinates[0][0]}/${latitudePerso},${longitudePerso}` }
                    className="WC" key={wc.recordid}>
                     <div className="WC__infos">
                         <h2 className="WC__title">
                             {selectedCity === 'nantes' && (wc.fields.nom)}
                             {selectedCity === 'bordeaux' && (wc.fields.adresse)}
+                            {selectedCity === 'paris' && (wc.fields.adresse)}
                             {selectedCity === 'rennes' && (wc.fields.noms)}
                             {selectedCity === 'lille' && (wc.fields.name)}
                         </h2>
