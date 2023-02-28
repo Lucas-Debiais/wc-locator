@@ -2,9 +2,25 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href=""/>
+    <link rel="icon" type="image/svg+xml" href="/src/img/icon.svg"/>
+    <link rel="apple-touch-icon" href="/src/img/icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Trouve tes toilettes</title>
+    <meta name="theme-color" content="#ffffff">
+    <link rel= "manifest" href= "manifest.json">
+    <title>WC Locator</title>
+
+    <script>
+        function registerServiceWorker() {
+            // enregistre le script sw avec les navigateurs qui le gèrent
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js', { scope: '/' }).then(() => {
+                    console.log('Service Worker enregistré correctement.');
+                }).catch(error => {
+                    console.log('Erreur lors de l\'enregistrement du Service Worker : ', error);
+                });
+            }
+        }
+    </script>
 </head>
 <body>
 <div id="root"></div>
