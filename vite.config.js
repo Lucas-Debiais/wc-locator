@@ -18,13 +18,13 @@ export default defineConfig({
                 theme_color: '#ffffff',
                 icons: [
                     {
-                        src: 'src/img/icon.svg',
+                        src: 'icon.svg',
                         sizes: '64x64',
                         type: 'image/svg+xml',
                         purpose: "any maskable"
                     },
                     {
-                        src: 'src/img/icon.png',
+                        src: 'icon.png',
                         sizes: '512x512',
                         type: 'image/png',
                         purpose: "any maskable"
