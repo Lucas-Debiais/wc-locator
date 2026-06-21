@@ -1,4 +1,3 @@
-import './App.scss'
 import {useState} from "react";
 import {Nav} from './Components/Nav'
 import {ListWC} from './Components/ListWC'

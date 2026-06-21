@@ -1,13 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-@import "style/reset";
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
 
 body {
   font-family: 'Lexend', sans-serif;
@@ -27,9 +22,3 @@ body {
     color: inherit;
   }
 }
-
-@import "style/variables";
-@import "style/heading";
-@import "style/list";
-@import "style/map";
-@import "style/filters";

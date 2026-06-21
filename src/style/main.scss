@@ -1,0 +1,9 @@
+// Global stylesheet entry point.
+// Partials own their own dependencies via `@use`, so order here only affects
+// the cascade (reset first, then base, then components).
+@use 'reset';
+@use 'base';
+@use 'heading';
+@use 'list';
+@use 'map';
+@use 'filters';
