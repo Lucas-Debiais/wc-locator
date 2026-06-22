@@ -27,7 +27,7 @@
       line-height: 15px;
       position: relative;
       z-index: 1;
-      transition: color .3s ease-in-out;
+      transition: color 0.3s ease-in-out;
       cursor: pointer;
 
       &.active {
@@ -43,7 +43,9 @@
       width: calc((100% / 2) - (5px * 2));
       height: calc(100% - (5px * 2));
       background-color: $primary;
-      transition: left .3s ease-in-out, right .3s ease-in-out;
+      transition:
+        left 0.3s ease-in-out,
+        right 0.3s ease-in-out;
 
       &.list {
         right: 5px;
