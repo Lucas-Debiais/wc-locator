@@ -17,7 +17,7 @@ npm run typecheck  # tsc -b, no emit
 npm run format     # Prettier write
 ```
 
-Copy `.env.example` to `.env` and set `VITE_MAPBOX_TOKEN` (a public Mapbox `pk.*` token) before running — the map is blank without it.
+Copy `.env.example` to `.env` and fill `VITE_MAPBOX_TOKEN` (a public Mapbox `pk.*` token; the map is blank without it) and `VITE_NANTES_API_KEY` (OpenDataSoft key for the Nantes dataset) before running.
 
 No test runner is configured. The dev server runs over **HTTPS by design**: the Geolocation/DeviceOrientation APIs the app relies on need a secure context, so plain HTTP breaks the GPS/distance features.
 
@@ -57,7 +57,7 @@ Add an entry to `CITIES` with `name`, `center`, the supported `filters`, and a `
 
 ### Map (`components/MapView.tsx`)
 
-Declarative react-map-gl (imported from `react-map-gl/mapbox`). `<Map>` has no `className`, so it's wrapped in `div.map-container` and sized to fill it — that keeps the existing `_map.scss` selectors (`.map-container .marker`, `.mapboxgl-popup-content .popup-list`, `.mapboxgl-ctrl-*`) matching. A single map instance is kept and driven through a ref: it `flyTo`s the new center on city change (clearing the popup) and `resize()`s whenever the map view becomes visible again (it lives in a `display:none` container in list view, where mapbox would otherwise keep a stale/zero size). Markers render a `<div className="marker">`; clicking one opens a `<Popup>`. The Mapbox token comes from `import.meta.env.VITE_MAPBOX_TOKEN` (`.env`, documented in `.env.example`); the custom style URL is hardcoded. The Nantes API key remains hardcoded in `cities.ts`.
+Declarative react-map-gl (imported from `react-map-gl/mapbox`). `<Map>` has no `className`, so it's wrapped in `div.map-container` and sized to fill it — that keeps the existing `_map.scss` selectors (`.map-container .marker`, `.mapboxgl-popup-content .popup-list`, `.mapboxgl-ctrl-*`) matching. A single map instance is kept and driven through a ref: it `flyTo`s the new center on city change (clearing the popup) and `resize()`s whenever the map view becomes visible again (it lives in a `display:none` container in list view, where mapbox would otherwise keep a stale/zero size). Markers render a `<div className="marker">`; clicking one opens a `<Popup>`. The Mapbox token comes from `import.meta.env.VITE_MAPBOX_TOKEN` (`.env`, documented in `.env.example`); the custom style URL is hardcoded. The Nantes OpenDataSoft API key likewise comes from `VITE_NANTES_API_KEY` (read in `cities.ts`).
 
 ### Filters are data-driven
 

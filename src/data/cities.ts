@@ -16,7 +16,9 @@ interface OdsResponse {
   records?: OdsRecord[]
 }
 
-const NANTES_API_KEY = 'bb7852e64f73e9acafbbbc31b4e237fe85f8e3beb630799d27351d64'
+// Read-only OpenDataSoft API key for the Nantes dataset, provided via env
+// (.env; see .env.example). It ships in the client bundle like any browser key.
+const NANTES_API_KEY = import.meta.env.VITE_NANTES_API_KEY
 
 function str(value: unknown): string | null {
   return typeof value === 'string' && value.trim() !== '' ? value.trim() : null
